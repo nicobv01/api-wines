@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
@@ -6,7 +7,8 @@ namespace API.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+            
         }
-
+        public DbSet<Wine> Wines { get; set; }
     }
 }
