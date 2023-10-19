@@ -1,4 +1,4 @@
-﻿namespace Wine.API.Services
+﻿namespace API.Services
 {
     public class WineService
     {

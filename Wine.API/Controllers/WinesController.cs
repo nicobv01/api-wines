@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Wine.API.Controllers
+namespace API.Controllers
 {
     public class WinesController : Controller
     {

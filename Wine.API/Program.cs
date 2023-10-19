@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Wine.API.Models;
+using API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

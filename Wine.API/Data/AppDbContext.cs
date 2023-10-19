@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Wine.API.Data
+namespace API.Data
 {
     public class AppDbContext : DbContext
     {
