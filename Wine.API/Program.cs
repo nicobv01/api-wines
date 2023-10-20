@@ -1,13 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using API.Data;
-using API.Services;
 using API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<WineRepository>();
-builder.Services.AddScoped<IWineService, WineService>();
+builder.Services.AddScoped<IWineRepository, WineRepository>();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
