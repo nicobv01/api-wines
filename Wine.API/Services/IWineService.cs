@@ -1,8 +1,8 @@
 ﻿using API.Models;
 
-namespace API.Repositories
+namespace API.Services
 {
-    public interface IWineRepository
+    public interface IWineService
     {
         Task<Wine> Insert(Wine wine);
     }

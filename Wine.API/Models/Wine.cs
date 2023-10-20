@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Wine.API.Models
+namespace API.Models
 {
     [Table("Wine")]
     public class Wine
