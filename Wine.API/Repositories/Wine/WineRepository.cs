@@ -24,5 +24,10 @@ namespace API.Repositories
             await _context.SaveChangesAsync();
             return wine;
         }
+
+        public async Task<Wine?> GetById(int id)
+        {
+            return await _context.Wines.FindAsync(id);
+        }
     }
 }
