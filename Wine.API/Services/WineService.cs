@@ -3,11 +3,11 @@ using API.Repositories;
 
 namespace API.Services
 {
-    public class WineService : IWineRepository
+    public class WineService : IWineService
     {
-        private readonly IWineRepository _wineRepository;
+        private readonly WineRepository _wineRepository;
 
-        public WineService(IWineRepository wineRepository)
+        public WineService(WineRepository wineRepository)
         {
             _wineRepository = wineRepository;
         }

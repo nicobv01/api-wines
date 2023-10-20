@@ -1,5 +1,5 @@
 ﻿using API.Models;
-using API.Repositories;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -8,17 +8,17 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class WineController : ControllerBase
     {
-        private readonly IWineRepository _wineRepository;
-        public WineController(IWineRepository wineRepository)
+        private readonly IWineService _wineService;
+        public WineController(IWineService wineService)
         {
-            _wineRepository = wineRepository;
+            _wineService = wineService;
         }
 
         // POST: api/Wine
         [HttpPost]
         public async Task<ActionResult<Wine>> Post(Wine wine)
         {
-            await _wineRepository.Insert(wine);
+            await _wineService.Insert(wine);
             return Ok(wine);
         }
 
