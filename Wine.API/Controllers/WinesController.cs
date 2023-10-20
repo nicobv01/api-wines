@@ -50,6 +50,20 @@ namespace API.Controllers
             return Ok(updatedWine);
         }
 
+        //DELETE: api/Wine/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var wine = await _wineRepository.GetById(id);
+            if (wine == null)
+            {
+                return NotFound();
+            }
+
+            await _wineRepository.DeleteById(id);
+            return Ok();
+        }
+
 
     }
 }

@@ -8,5 +8,7 @@ namespace API.Repositories
         Task<Wine?> GetById(int id);
         Task<Wine> Insert(Wine wine);
         Task<Wine?> Update(Wine wine);
+        Task<Wine?> DeleteById(int id);
+
     }
 }

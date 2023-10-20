@@ -36,5 +36,18 @@ namespace API.Repositories
             await _context.SaveChangesAsync();
             return entityEntry.Entity;
         }
+
+        public async Task<Wine?> DeleteById(int id)
+        {
+            var wine = await _context.Wines.FindAsync(id);
+            if (wine == null)
+            {
+                return null;
+            }
+
+            _context.Wines.Remove(wine);
+            await _context.SaveChangesAsync();
+            return wine;
+        }
     }
 }
