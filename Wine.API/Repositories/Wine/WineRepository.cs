@@ -13,11 +13,21 @@ namespace API.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Wine>> GetAll()
+        {
+            return await _context.Wines.ToListAsync();            
+        }
+
         public async Task<Wine> Insert(Wine wine)
         {
             _context.Wines.Add(wine);
             await _context.SaveChangesAsync();
             return wine;
+        }
+
+        public async Task<Wine?> GetById(int id)
+        {
+            return await _context.Wines.FindAsync(id);
         }
     }
 }

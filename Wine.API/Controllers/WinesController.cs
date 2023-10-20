@@ -6,10 +6,10 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WineController : ControllerBase
+    public class WinesController : ControllerBase
     {
         private readonly IWineRepository _wineRepository;
-        public WineController(IWineRepository wineRepository)
+        public WinesController(IWineRepository wineRepository)
         {
             _wineRepository = wineRepository;
         }
@@ -19,6 +19,21 @@ namespace API.Controllers
         public async Task<ActionResult<Wine>> Post(Wine wine)
         {
             await _wineRepository.Insert(wine);
+            return Ok(wine);
+        }
+
+        //GET: api/Wine
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Wine>>> Get()
+        {
+            return Ok(await _wineRepository.GetAll());
+        }
+
+        //GET: api/Wine/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Wine>> GetById(int id)
+        {
+            var wine = await _wineRepository.GetById(id);
             return Ok(wine);
         }
 

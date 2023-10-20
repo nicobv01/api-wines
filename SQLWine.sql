@@ -6,7 +6,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Wine](
-	[Id] [bigint] NOT NULL,
+	[Id] [int] NOT NULL PRIMARY KEY,
 	[Name] [varchar](200) NOT NULL,
 	[Description] [varchar](500) NULL,
 	[CountryCode] [char](3) NOT NULL,
@@ -14,5 +14,3 @@ CREATE TABLE [dbo].[Wine](
 	[Year] [Date] NULL
 ) ON [PRIMARY]
 GO
-
-
