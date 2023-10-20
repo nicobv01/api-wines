@@ -37,6 +37,19 @@ namespace API.Controllers
             return Ok(wine);
         }
 
+        //PUT: api/Wine/5
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Wine>> Put(int id, Wine wine)
+        {
+            if (id != wine.Id)
+            {
+                return BadRequest();
+            }
+
+            var updatedWine = await _wineRepository.Update(wine);
+            return Ok(updatedWine);
+        }
+
 
     }
 }

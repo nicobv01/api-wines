@@ -29,5 +29,12 @@ namespace API.Repositories
         {
             return await _context.Wines.FindAsync(id);
         }
+
+        public async Task<Wine?> Update(Wine wine)
+        {
+            var entityEntry = _context.Wines.Update(wine);
+            await _context.SaveChangesAsync();
+            return entityEntry.Entity;
+        }
     }
 }

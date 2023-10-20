@@ -7,5 +7,6 @@ namespace API.Repositories
         Task<IEnumerable<Wine>> GetAll();
         Task<Wine?> GetById(int id);
         Task<Wine> Insert(Wine wine);
+        Task<Wine?> Update(Wine wine);
     }
 }
