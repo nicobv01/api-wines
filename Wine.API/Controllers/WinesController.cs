@@ -22,6 +22,12 @@ namespace API.Controllers
             return Ok(wine);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Wine>>> Get()
+        {
+            return Ok(await _wineRepository.GetAll());
+        }
+
 
     }
 }

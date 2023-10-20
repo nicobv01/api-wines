@@ -13,6 +13,11 @@ namespace API.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Wine>> GetAll()
+        {
+            return await _context.Wines.ToListAsync();            
+        }
+
         public async Task<Wine> Insert(Wine wine)
         {
             _context.Wines.Add(wine);
