@@ -8,32 +8,36 @@ namespace Tests
 {
     public class WineRepositoryTest
     {
+        private readonly AppDbContext _context;
+        private readonly IWineRepository _wineRepository;
+
+        public WineRepositoryTest()
+{             var options = new DbContextOptionsBuilder<AppDbContext>()
+                        .UseInMemoryDatabase(databaseName: "Wine")
+                                        .Options;
+        
+            _context = new AppDbContext(options);
+            _wineRepository = new WineRepository(_context);
+        }
+
         [Fact]
         public async Task InsertWine_CheckInsertedData_Success()
         {
-            int id = 123;
-            DbContextOptions<AppDbContext> options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Wine")
-                .Options;
-
-            var result = new Wine();
-
-            using (var context = new AppDbContext(options))
+            int id = 22;
+    
+            var wine = new Wine
             {
-                var wineRepository = new WineRepository(context);
-                var wine = new Wine
-                {
-                    Id = id,
-                    Name = "Test Wine",
-                    Description = "Test Wine",
-                    CountryCode = "RD",
-                    Type = 1
-                };
-                result = await wineRepository.Insert(wine);
-            }
-
+                Id = id,
+                Name = "Test Wine",
+                Description = "Test Wine",
+                CountryCode = "RD",
+                Type = 1
+            };
+            var result = await _wineRepository.Insert(wine);
+     
             Assert.Equal(id, result.Id);
 
         }
+
     }
 }
