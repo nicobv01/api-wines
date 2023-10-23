@@ -2,9 +2,8 @@ using API.Data;
 using API.Models;
 using API.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
 
-namespace Tests
+namespace Tests.Repositories
 {
     public class WineRepositoryTest : IDisposable
     {
