@@ -1,8 +1,8 @@
-﻿using API.Data;
+using API.Data;
 using API.Models;
 using API.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
+using System;
 
 namespace Tests
 {
@@ -12,10 +12,11 @@ namespace Tests
         private readonly IWineRepository _wineRepository;
 
         public WineRepositoryTest()
-        {    var options = new DbContextOptionsBuilder<AppDbContext>()
+        {
+            var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(databaseName: "Wine")
             .Options;
-        
+
             _context = new AppDbContext(options);
 
             AddInitialWines();
@@ -30,9 +31,6 @@ namespace Tests
 
         public void AddInitialWines()
         {
-            //_context.Database.EnsureDeleted();
-            //_context.Database.EnsureCreated();
-
             var initialWines = new List<Wine>
             {
                 new Wine
@@ -84,7 +82,7 @@ namespace Tests
 
             //Act
             var result = await _wineRepository.Insert(wine);
-     
+
             //Assert
             Assert.True(result);
         }
@@ -117,16 +115,16 @@ namespace Tests
         public async Task UpdateWine_WithValidId_ShouldReturnTrue()
         {
             //Arrange
-             int id = 2;
-             var wine = new Wine
-             {
-                 Id = id,
-                 Name = "Test Wine Updated",
-                 Description = "Test Wine",
-                 CountryCode = "RD",
-                 Type = 2,
-                 Year = DateTime.Now
-             };
+            int id = 2;
+            var wine = new Wine
+            {
+                Id = id,
+                Name = "Test Wine Updated",
+                Description = "Test Wine",
+                CountryCode = "RD",
+                Type = 2,
+                Year = DateTime.Now
+            };
 
             //Act
             var updatedWine = await _wineRepository.Update(wine);

@@ -18,7 +18,13 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Wine>> Post(Wine wine)
         {
-            await _wineRepository.Insert(wine);
+            var result = await _wineRepository.Insert(wine);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+
             return Ok(wine);
         }
 
@@ -34,6 +40,12 @@ namespace API.Controllers
         public async Task<ActionResult<Wine>> GetById(int id)
         {
             var wine = await _wineRepository.GetById(id);
+
+            if (wine == null)
+            {
+                return NotFound();
+            }
+
             return Ok(wine);
         }
 
@@ -47,6 +59,12 @@ namespace API.Controllers
             }
 
             var updatedWine = await _wineRepository.Update(wine);
+
+            if (!updatedWine)
+            {
+                return NotFound();
+            }
+
             return Ok(updatedWine);
         }
 
@@ -54,13 +72,13 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var wine = await _wineRepository.GetById(id);
-            if (wine == null)
+            var result = await _wineRepository.DeleteById(id);
+
+            if (!result)
             {
                 return NotFound();
             }
 
-            await _wineRepository.DeleteById(id);
             return Ok();
         }
 
