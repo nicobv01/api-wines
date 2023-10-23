@@ -65,7 +65,7 @@ namespace Tests
 
 
         [Fact]
-        public async Task When_InsertWine()
+        public async Task Insert_ValidWine_ShouldSucceed()
         {
             //Arrange
             int id = 4;
@@ -83,21 +83,21 @@ namespace Tests
      
             //Assert
             Assert.True(result);
-
         }
 
         [Fact]
-        public async Task When_GetAllWines()
+        public async Task GetAllWines_ShouldReturnNonEmptyList()
         {
             //Act
             var result = await _wineRepository.GetAll();
 
             //Assert
             Assert.NotNull(result);
+            Assert.NotEmpty(result);
         }
 
         [Fact]
-        public async Task When_GetWineById()
+        public async Task GetById_ValidId_ShouldReturnMatchingWine()
         {
             //Arrange
             int id = 1;
@@ -110,7 +110,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task When_UpdateWine()
+        public async Task UpdateWine_WithValidId_ShouldReturnTrue()
         {
             //Arrange
              int id = 2;
@@ -132,7 +132,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task When_DeleteWine()
+        public async Task DeleteWine_WithValidId_ShouldReturnTrue()
         {
             //Arrange
             int id = 3;
