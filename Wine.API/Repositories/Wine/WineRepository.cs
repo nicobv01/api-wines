@@ -18,11 +18,18 @@ namespace API.Repositories
             return await _context.Wines.ToListAsync();            
         }
 
-        public async Task<Wine> Insert(Wine wine)
+        public async Task<bool> Insert(Wine wine)
         {
-            _context.Wines.Add(wine);
-            await _context.SaveChangesAsync();
-            return wine;
+            try
+            {
+                _context.Wines.Add(wine);
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<Wine?> GetById(int id)
@@ -30,24 +37,36 @@ namespace API.Repositories
             return await _context.Wines.FindAsync(id);
         }
 
-        public async Task<Wine?> Update(Wine wine)
+        public async Task<bool> Update(Wine wine)
         {
-            var entityEntry = _context.Wines.Update(wine);
+            var existingWine = await _context.Wines.FindAsync(wine.Id);
+            if (existingWine == null)
+            {
+                return false;
+            }
+
+            existingWine.Id = wine.Id;
+            existingWine.Name = existingWine.Name;
+            existingWine.Description = existingWine.Description;
+            existingWine.CountryCode = wine.CountryCode;
+            existingWine.Type = wine.Type;
+            existingWine.Year = wine.Year;
+
             await _context.SaveChangesAsync();
-            return entityEntry.Entity;
+            return true;
         }
 
-        public async Task<Wine?> DeleteById(int id)
+        public async Task<bool> DeleteById(int id)
         {
             var wine = await _context.Wines.FindAsync(id);
             if (wine == null)
             {
-                return null;
+                return false;
             }
 
             _context.Wines.Remove(wine);
             await _context.SaveChangesAsync();
-            return wine;
+            return true;
         }
     }
 }

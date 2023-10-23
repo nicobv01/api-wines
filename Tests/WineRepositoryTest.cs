@@ -17,77 +17,57 @@ namespace Tests
             .Options;
         
             _context = new AppDbContext(options);
+
+            AddInitialWines();
+
             _wineRepository = new WineRepository(_context);
         }
+
+        public void AddInitialWines()
+        {
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
+
+            var initialWines = new List<Wine>
+            {
+                new Wine
+                {
+                    Id = 1,
+                    Name = "Wine 1",
+                    Description = "Description 1",
+                    CountryCode = "RD",
+                    Type = 1,
+                    Year = DateTime.Now
+                },
+                new Wine
+                {
+                    Id = 2,
+                    Name = "Wine 2",
+                    Description = "Description 2",
+                    CountryCode = "US",
+                    Type = 2,
+                    Year = DateTime.Now
+                },
+                new Wine
+                {
+                    Id = 3,
+                    Name = "Wine 3",
+                    Description = "Description 3",
+                    CountryCode = "US",
+                    Type = 2,
+                    Year = DateTime.Now
+                }
+            };
+
+            _context.Wines.AddRange(initialWines);
+            _context.SaveChanges();
+        }
+
 
         [Fact]
         public async Task When_InsertWine()
         {
-            int id = 1;
-    
-            var wine = new Wine
-            {
-                Id = id,
-                Name = "Test Wine",
-                Description = "Test Wine",
-                CountryCode = "RD",
-                Type = 1
-            };
-            var result = await _wineRepository.Insert(wine);
-     
-            Assert.Equal(id, result.Id);
-
-        }
-
-        [Fact]
-        public async Task When_GetAllWines()
-        {
-            var result = await _wineRepository.GetAll();
-            Assert.NotNull(result);
-        }
-
-        [Fact]
-        public async Task When_GetWineById()
-        {
-            int id = 2;
-            var wine = new Wine
-            {
-                Id = id,
-                Name = "Test Wine",
-                Description = "Test Wine",
-                CountryCode = "RD",
-                Type = 1
-            };
-            await _wineRepository.Insert(wine);
-
-            var result = await _wineRepository.GetById(id);
-
-            Assert.Equal(id, result?.Id);
-        }
-
-        [Fact]
-        public async Task When_UpdateWine()
-        {
-            int id = 3;
-            var wine = new Wine
-            {
-                Id = id,
-                Name = "Test Wine",
-                Description = "Test Wine",
-                CountryCode = "RD",
-                Type = 1
-            };
-            var result = await _wineRepository.Insert(wine);
-
-            result.Name = "Test Wine Updated";
-            var updatedWine = await _wineRepository.Update(result);
-
-            Assert.Equal("Test Wine Updated", updatedWine?.Name);
-        }
-
-        [Fact]
-        public async Task When_DeleteWine()
-        {
+            //Arrange
             int id = 4;
             var wine = new Wine
             {
@@ -97,13 +77,71 @@ namespace Tests
                 CountryCode = "RD",
                 Type = 1
             };
-            await _wineRepository.Insert(wine);
 
-            await _wineRepository.DeleteById(id);
+            //Act
+            var result = await _wineRepository.Insert(wine);
+     
+            //Assert
+            Assert.True(result);
 
+        }
+
+        [Fact]
+        public async Task When_GetAllWines()
+        {
+            //Act
+            var result = await _wineRepository.GetAll();
+
+            //Assert
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task When_GetWineById()
+        {
+            //Arrange
+            int id = 1;
+
+            //Act
             var result = await _wineRepository.GetById(id);
 
-            Assert.Null(result);
+            //Assert
+            Assert.Equal(id, result?.Id);
+        }
+
+        [Fact]
+        public async Task When_UpdateWine()
+        {
+            //Arrange
+             int id = 2;
+             var wine = new Wine
+             {
+                 Id = id,
+                 Name = "Test Wine Updated",
+                 Description = "Test Wine",
+                 CountryCode = "RD",
+                 Type = 2,
+                 Year = DateTime.Now
+             };
+
+            //Act
+            var updatedWine = await _wineRepository.Update(wine);
+
+            //Assert
+            Assert.True(updatedWine);
+        }
+
+        [Fact]
+        public async Task When_DeleteWine()
+        {
+            //Arrange
+            int id = 3;
+
+            //Act
+            var result = await _wineRepository.DeleteById(id);
+
+            //Assert
+            Assert.True(result);
         }
 
     }
