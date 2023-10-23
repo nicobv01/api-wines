@@ -32,7 +32,8 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Wine>>> Get()
         {
-            return Ok(await _wineRepository.GetAll());
+            var result = await _wineRepository.GetAll();
+            return Ok(result);
         }
 
         //GET: api/Wine/5

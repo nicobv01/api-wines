@@ -9,6 +9,5 @@ namespace API.Repositories
         Task<bool> Insert(Wine wine);
         Task<bool> Update(Wine wine);
         Task<bool> DeleteById(int id);
-
     }
 }
