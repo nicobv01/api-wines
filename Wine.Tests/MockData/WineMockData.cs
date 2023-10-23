@@ -37,5 +37,18 @@ namespace Tests.MockData
                 }
             };
         }
+
+        public static Wine AddWine()
+        {
+            return new Wine
+            {
+                Id = 4,
+                Name = "Wine 4",
+                Description = "Description 4",
+                CountryCode = "US",
+                Type = 2,
+                Year = DateTime.Now
+            };
+        }
     }
 }
