@@ -25,7 +25,7 @@ namespace API.Controllers
                 return BadRequest();
             }
 
-            return Ok(wine);
+            return CreatedAtAction(nameof(GetById), new { id = wine.Id }, wine);
         }
 
         //GET: api/Wine

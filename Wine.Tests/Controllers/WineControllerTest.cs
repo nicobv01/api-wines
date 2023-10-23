@@ -42,8 +42,8 @@ namespace Tests.Controllers
 
             //Assert    
             result.Should().BeOfType<ActionResult<Wine>>();
-            result.As<ActionResult<Wine>>().Result.Should().BeOfType<OkObjectResult>()
-               .Which.StatusCode.Should().Be(200);
+            result.As<ActionResult<Wine>>().Result.Should().BeOfType<CreatedAtActionResult>()
+               .Which.StatusCode.Should().Be(201);
         }
     }
 }
