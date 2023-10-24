@@ -145,5 +145,70 @@ namespace Tests.Repositories
             Assert.True(result);
         }
 
+        [Fact]
+        public async Task DeleteWine_WithInvalidId_ShouldReturnFalse()
+        {
+            //Arrange
+            int id = 5;
+
+            //Act
+            var result = await _wineRepository.DeleteById(id);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task GetById_WithInvalidId_ShouldReturnNull()
+        {
+            //Arrange
+            int id = 5;
+
+            //Act
+            var result = await _wineRepository.GetById(id);
+
+            //Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Insert_DuplicateWine_ShouldReturnFalse()
+        {
+            //Arrange
+            var wine = new Wine
+            {
+                Id = 1,
+                Name = "Test Wine",
+                Description = "Test Wine",
+                CountryCode = "RD",
+                Type = 1
+            };
+
+            //Act
+            var result = await _wineRepository.Insert(wine);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task UpdateWine_WithInvalidId_ShouldReturnFalse()
+        {
+            //Arrange
+            var wine = new Wine
+            {
+                Name = "Test Wine Updated",
+                Description = "Test Wine",
+                CountryCode = "RD",
+                Type = 2,
+                Year = DateTime.Now
+            };
+
+            //Act
+            var updatedWine = await _wineRepository.Update(wine);
+
+            //Assert
+            Assert.False(updatedWine);
+        }
     }
 }
