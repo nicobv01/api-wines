@@ -1,6 +1,7 @@
 using API.Data;
 using API.Models;
 using API.Repositories;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tests.Repositories
@@ -83,7 +84,7 @@ namespace Tests.Repositories
             var result = await _wineRepository.Insert(wine);
 
             //Assert
-            Assert.True(result);
+            result.Should().BeTrue();
         }
 
         [Fact]
@@ -93,8 +94,10 @@ namespace Tests.Repositories
             var result = await _wineRepository.GetAll();
 
             //Assert
-            Assert.NotNull(result);
-            Assert.NotEmpty(result);
+            result.Should().NotBeNull();
+            result.Should().NotBeEmpty();
+            result.Should().BeOfType<List<Wine>>();
+            result.Should().BeEquivalentTo(_context.Wines.ToList());
         }
 
         [Fact]
@@ -107,7 +110,8 @@ namespace Tests.Repositories
             var result = await _wineRepository.GetById(id);
 
             //Assert
-            Assert.Equal(id, result?.Id);
+            result.Should().BeOfType<Wine>();
+            result?.Id.Should().Be(id); 
         }
 
         [Fact]
@@ -129,7 +133,7 @@ namespace Tests.Repositories
             var updatedWine = await _wineRepository.Update(wine);
 
             //Assert
-            Assert.True(updatedWine);
+            updatedWine.Should().BeTrue();
         }
 
         [Fact]
@@ -142,7 +146,7 @@ namespace Tests.Repositories
             var result = await _wineRepository.DeleteById(id);
 
             //Assert
-            Assert.True(result);
+            result.Should().BeTrue();
         }
 
         [Fact]
@@ -155,7 +159,7 @@ namespace Tests.Repositories
             var result = await _wineRepository.DeleteById(id);
 
             //Assert
-            Assert.False(result);
+            result.Should().BeFalse();
         }
 
         [Fact]
@@ -168,7 +172,7 @@ namespace Tests.Repositories
             var result = await _wineRepository.GetById(id);
 
             //Assert
-            Assert.Null(result);
+            result.Should().BeNull();
         }
 
         [Fact]
@@ -188,7 +192,7 @@ namespace Tests.Repositories
             var result = await _wineRepository.Insert(wine);
 
             //Assert
-            Assert.False(result);
+            result.Should().BeFalse();
         }
 
         [Fact]
@@ -208,7 +212,7 @@ namespace Tests.Repositories
             var updatedWine = await _wineRepository.Update(wine);
 
             //Assert
-            Assert.False(updatedWine);
+            updatedWine.Should().BeFalse();
         }
     }
 }
