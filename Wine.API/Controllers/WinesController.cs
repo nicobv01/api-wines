@@ -16,6 +16,8 @@ namespace API.Controllers
 
         // POST: api/Wine
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Wine))]
         public async Task<ActionResult<Wine>> Post(Wine wine)
         {
             var result = await _wineRepository.Insert(wine);
@@ -30,6 +32,7 @@ namespace API.Controllers
 
         //GET: api/Wine
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Wine))]
         public async Task<ActionResult<IEnumerable<Wine>>> Get()
         {
             var result = await _wineRepository.GetAll();
@@ -38,6 +41,8 @@ namespace API.Controllers
 
         //GET: api/Wine/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Wine))]
         public async Task<ActionResult<Wine>> GetById(int id)
         {
             var wine = await _wineRepository.GetById(id);
@@ -52,6 +57,9 @@ namespace API.Controllers
 
         //PUT: api/Wine/5
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Wine))]
         public async Task<ActionResult<Wine>> Put(int id, Wine wine)
         {
             if (id != wine.Id)
@@ -71,6 +79,8 @@ namespace API.Controllers
 
         //DELETE: api/Wine/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Wine))]
         public async Task<ActionResult> Delete(int id)
         {
             var result = await _wineRepository.DeleteById(id);
