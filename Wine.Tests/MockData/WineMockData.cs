@@ -50,5 +50,18 @@ namespace Tests.MockData
                 Year = DateTime.Now
             };
         }
+
+        public static Wine GetWine()
+        {
+            return new Wine
+            {
+                Id = 5,
+                Name = "Wine 5",
+                Description = "Description 5",
+                CountryCode = "US",
+                Type = 2,
+                Year = DateTime.Now
+            };
+        }
     }
 }
