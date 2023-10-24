@@ -46,8 +46,8 @@ namespace API.Repositories
             }
 
             existingWine.Id = wine.Id;
-            existingWine.Name = existingWine.Name;
-            existingWine.Description = existingWine.Description;
+            existingWine.Name = wine.Name;
+            existingWine.Description = wine.Description;
             existingWine.CountryCode = wine.CountryCode;
             existingWine.Type = wine.Type;
             existingWine.Year = wine.Year;
